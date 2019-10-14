@@ -1,26 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import PreviousSpins from './PreviousSpins'
+import RoulletteWheel from './RoulletteWheel'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      previousSpins: []
+    }
+  }
+  
+  handleSpin = (number) =>{
+    const spins = this.state.previousSpins
+    spins.push(number)
+    this.setState({previousSpins: spins})
+  }
+  
+  render(){
+    return (
+      <div>
+        <div id="wheel">
+          <RoulletteWheel recordSpin={this.handleSpin} />
+        </div>
+        <div id="previous-spins">
+          <PreviousSpins spins={this.state.previousSpins} />
+        </div>
+      </div>
+    )
+  }
 }
 
 export default App;
